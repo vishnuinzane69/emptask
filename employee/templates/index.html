@@ -1,0 +1,135 @@
+{% extends 'layout/app-layout.html' %}
+
+{% block content %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>InzanePix</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .welcome-container {
+            text-align: center;
+            padding: 20px;
+            height: 100vh;
+            background-image: url('https://img.freepik.com/free-photo/two-monastera-leaves-black-background_23-2147835077.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            padding-top: 10vh;
+        }
+
+        .welcome-title {
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 1.5s forwards ease-in-out;
+        }
+
+        .welcome-dialogue {
+            color: #f0f0f0;
+            font-size: 1.3em;
+            margin-top: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            font-family: 'Courier New', Courier, monospace;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #f0f0f0;
+            width: fit-content;
+            animation: typing 3.5s steps(50) 0.5s forwards, blink-caret 0.7s step-end infinite;
+        }
+
+        /* Typing effect */
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Blinking cursor effect */
+        @keyframes blink-caret {
+            50% { border-color: transparent; }
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signup-btn, .view-employees-btn, .login-btn {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.2em;
+            padding: 10px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+            animation: pulse 2s 1s infinite alternate;
+            opacity: 0;
+            animation: fadeInUp 1.5s 1s forwards ease-in-out, pulse 2s 1s infinite alternate;
+        }
+
+        /* Pulse animation for buttons */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        .signup-btn:hover, .view-employees-btn:hover, .login-btn:hover {
+            background-color: #0056b3;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Container to position Sign Up and Log In side-by-side */
+        .signup-login-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <h1 class="welcome-title">Welcome to InzanePix</h1>
+        <p class="welcome-dialogue">Creating Connections, Empowering Excellence!</p>
+        <div class="text-center mt-4">
+            {% if user.is_authenticated %}
+                <a href="{% url 'retrieveproduct' %}" class="view-employees-btn">View Employees</a>
+            {% else %}
+                <div class="signup-login-container">
+                    <a href="{% url 'signup' %}" class="signup-btn">Sign Up</a>
+                    <a href="{% url 'login' %}" class="login-btn">Log In</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+{% endblock %}
